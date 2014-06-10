@@ -266,14 +266,22 @@
                 </div>
                 
                 <p><span onclick="gen_sign_con()" class="btn btn-info">Generate contract and PGP sign</span></p>
-                    
-               
             </div>
+            
+            
+            <div id="result_signed_PGP_contract">
+                <h3>Signed Contract</h3>
+                <p>The following is the contract signed with your PGP key</p>
+                <pre id='signed_contract_container' class="well"></pre>
+            </div>
+            
+            
 
             <div id="template_popup_pgp_load">
                 <h3>PGP Key Pair</h3>
-                <p>It appears that you have not set a PGP key pair to use, Please specify one before continuing.  Alternatively, you can use the application without setting this, though some features will not be available</p>
                 <div class="alert alert-danger alert-dismissable">IMPORTANT! : At the moment this stores your public and private key in clear text within your browser's HTML5 storage.</div>
+                <p>It appears that you have not set a PGP key pair to use, Please specify one before continuing.  Alternatively, you can use the application without setting this, though some features will not be available</p>
+                <p>The file needs to be a plaintext file containing your public and private key.</p>                
                 <p>We will provide options in the future for encryption, but at this stage it is not secure.  You can delete all local storage from the options menu.</p>
                 <div class="form-group">
                     <label for="pgp_key_pair" class="control-label">Please select your pgp key pair file</label>

@@ -55,7 +55,7 @@ $(function() {
             $("#"+i).val(v);
         });
     }
-    
+    sha1('test'); 
 });
 
 
@@ -134,6 +134,38 @@ function pgp_file_load(){
     
 }
 
+//Returns a string of the SHA1 Hash of this value using the openpgpjs crypto library and btoa
+function sha1(string){
+    var hash = stringToBytes(openpgp.crypto.hash.digest(2,string));
+            
+    console.log(hash + "\r\na94a8fe5ccb19ba61c4c0873d391e987982fbbd3\r\n Length : " + hash.length + "\r\n SHA1 Len : " + openpgp.crypto.hash.getHashByteLength(2));
+}
+function stringToBytes ( str ) {
+  var ch, st, re = [];
+  for (var i = 0; i < str.length; i++ ) {
+    ch = str.charCodeAt(i);  // get char 
+    st = [];                 // set up "stack"
+    do {
+      st.push( ch & 0xFF );  // push byte to stack
+      ch = ch >> 8;          // shift value down by 1 byte
+    }  
+    while ( ch );
+    // add stack contents to result
+    // done because chars have "wrong" endianness
+    re = re.concat( st.reverse() );
+  }
+  // return an array of bytes
+  return re;
+  
+}
+
+function bin2String(array) {
+  var result = "";
+  for (var i = 0; i < array.length; i++) {
+    result += String.fromCharCode(parseInt(array[i], 2));
+  }
+  return result;
+}
 
 
 
@@ -251,6 +283,11 @@ function gen_create_con(){
     
     //If all values are correct ,then show the sign and encrypt modal
     else {
+        //Check if we have a public key,
+        var pub_key = JSON.parse(localStorage.PGP_keypair)[0];
+        if(pub_key!==undefined)
+            //Add the public key to the end of the data to parse
+            contract_values['PGP_Public_Key']=pub_key;
         //get parsed data
         var parsedValues = gen_parse_values(contract_values);
         
@@ -269,14 +306,19 @@ function gen_parse_values(v){
     
     //For XML Data
     if(type==="XML"){
-        //Prepare a var for holding data
-        var resultData = "";
+        //Prepare a var for holding data, and set the XML data at the head
+        var resultData = '&lt?xml version="1.0"  encoding="UTF-8"?&gt\r\n\r\n  &ltdata&gt\r\n\r\n';
         $.each(v,function( index,value ) {
-                        resultData = resultData + "<"+index+">" + value + "</"+index+">\r\n";
+            //Get this input's name
+            var el = form_gen_get_element(index);
+            //If we got a name, add it as a comment in the XMl document
+            if(el!== undefined) resultData = resultData + "    &lt!--" + el.name + "--&gt\r\n";
+            //Add the result into the document as XML
+            resultData = resultData + "    &lt"+index+"&gt" + value + "&lt/"+index+"&gt\r\n\r\n";
         });
         
         //Once completed, return result data
-        return resultData;
+        return resultData + "  &lt/data&gt\r\n\r\n";
     }
     else if(type==="JSON")
         return JSON.stringify(v);
@@ -478,12 +520,12 @@ function gen_sign_con(){
             
             //Sign the contract with the private key,
             var pgpSignedContract = openpgp.signClearMessage([pgp_priv_key], $("#xml_contract").html());
-
+            
             //write the contract to the contract location
-            $("#xml_contract").html(pgpSignedContract);
+            $("#signed_contract_container").html(pgpSignedContract);
 
             //Set the modal back to blank, and remove all input fields
-            $("#popup_content").html("");
+            $("#popup_content").html($('#result_signed_PGP_contract').html());
             $("#form_gen_fields").html("");
 
         }
@@ -515,4 +557,19 @@ function gen_check_inputs_required(){
     if(msgs.length >= 1)return msgs;
     //Else return true
     else return true;
+}
+
+function xml_parse(data){
+    if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+        }
+      else
+        {// code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xmlhttp.open("GET","books.xml",false);
+      xmlhttp.send();
+      return xmlhttp.responseXML;
+      
 }
