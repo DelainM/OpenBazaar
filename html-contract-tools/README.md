@@ -17,17 +17,17 @@ The current contract is persistant through browser restarts and refreshes, meani
 
 ##Screenshots
 
-![](https://github.com/DelainM/OpenBazaar/blob/master/html-contract-tools/resources/OB-HTML-Contract-tools.png?raw=true)
+![](https://github.com/DelainM/OpenBazaar/blob/html-contracts/html-contract-tools/resources/OB-HTML-Contract-tools.png?raw=true)
 
-![](https://github.com/DelainM/OpenBazaar/blob/master/html-contract-tools/resources/OB-HTML-Contract-tools_raw.png?raw=true)
+![](https://github.com/DelainM/OpenBazaar/blob/html-contracts/html-contract-tools/resources/OB-HTML-Contract-tools_raw.png?raw=true)
 
-![](https://github.com/DelainM/OpenBazaar/blob/master/html-contract-tools/resources/OB-HTML-Contract-tools_save_contract.png?raw=true)
+![](https://github.com/DelainM/OpenBazaar/blob/html-contracts/html-contract-tools/resources/OB-HTML-Contract-tools_save_contract.png?raw=true)
 
-![](https://github.com/DelainM/OpenBazaar/blob/master/html-contract-tools/resources/OB-HTML-Contract-tools_sign.png?raw=true)
+![](https://github.com/DelainM/OpenBazaar/blob/html-contracts/html-contract-tools/resources/OB-HTML-Contract-tools_sign.png?raw=true)
 
-![](https://github.com/DelainM/OpenBazaar/blob/master/html-contract-tools/resources/OB-HTML-Contract-tools_signed_contract.png?raw=true)
+![](https://github.com/DelainM/OpenBazaar/blob/html-contracts/html-contract-tools/resources/OB-HTML-Contract-tools_signed_contract.png?raw=true)
 
-![](https://github.com/DelainM/OpenBazaar/blob/master/html-contract-tools/resources/OB-HTML-Contract-tools_contract_options.png?raw=true)
+![](https://github.com/DelainM/OpenBazaar/blob/html-contracts/html-contract-tools/resources/OB-HTML-Contract-tools_contract_options.png?raw=true)
 
 
 ## Some of the workings.
